@@ -35,9 +35,12 @@ public class ItemPedido {
     @ManyToOne
     private Pedido pedido;
 
+    @Column(name = "quantidade")
     private Integer quantidade;
 
+    @Column(name = "precoUnitario")
     private BigDecimal precoUnitario;
 
+    @Column(name = "precoTotal")
     private BigDecimal precoTotal;
 }

@@ -35,9 +35,11 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens = new ArrayList<>();
 
+    @Column(name = "valorTotal")
     private BigDecimal valorTotal;
 
     //todo Ver melhor jeito pelo JPA
+    @Column(name = "timestamp")
     private Instant timestamp = Instant.now();
 
 }
