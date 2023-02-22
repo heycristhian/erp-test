@@ -23,7 +23,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         var response = ExceptionResponse.builder()
                 .code(status.value())
                 .status(status.getReasonPhrase())
-                .message("There are fields with errors")
+                .message("Existe(m) campo(s) com erro")
                 .fields(getFieldsExceptionResponse(ex))
                 .build();
         return ResponseEntity.status(status).body(response);
