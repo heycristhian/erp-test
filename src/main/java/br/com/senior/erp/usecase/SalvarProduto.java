@@ -5,6 +5,7 @@ import br.com.senior.erp.domain.Produto;
 import br.com.senior.erp.enums.SituacaoProduto;
 import br.com.senior.erp.mapper.ProdutoMapper;
 import br.com.senior.erp.repository.ProdutoRepository;
+import br.com.senior.erp.util.LogMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ public class SalvarProduto {
     }
 
     public Produto execute(ProdutoRequest produtoRequest) {
-        log.info("Mapeando ProdutoRequest para Produto");
+        log.info(LogMessage.MAPEAMENTO, "ProdutoRequest", "Produto");
         var produto = ProdutoMapper.INSTANCE.toProduto(produtoRequest, SituacaoProduto.ATIVO);
 
         log.info("Inserindo no banco de dados");
