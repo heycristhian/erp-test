@@ -35,6 +35,9 @@ public class Pedido {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @Column(name = "numero_pedido", nullable = false)
+    private Integer numeroPedido;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pedido_id")
     private List<ItemPedido> itens = new ArrayList<>();

@@ -10,6 +10,8 @@ public abstract class LogMessage {
 
     public static final String MAP_PROD_TO_PROD_RESP = "Mapeando Produto para ProdutoResponse";
     public static final String MAP_PROD_REQ_TO_PROD = "Mapeando ProdutoRequest para Produto";
+    public static final String MAP_PED_REQ_TO_PED = "Mapeando PedidoRequest para Pedido";
+    public static final String MAP_PED_TO_PED_RESP = "Mapeando Pedido para PedidoResponse";
 
     public static final String RETORNO_HTTP = "Retornando resposta da requisicao";
 
@@ -26,5 +28,4 @@ public abstract class LogMessage {
 
     public static final String PRODUTO_ENTIDADE_NOME = Produto.class.getSimpleName();
     public static final String PEDIDO_ENTIDADE_NOME = Pedido.class.getSimpleName();
-
 }
