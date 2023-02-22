@@ -32,20 +32,20 @@ public class Produto {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "preco")
+    @Column(name = "preco", nullable = false)
     private BigDecimal preco;
 
-    @Column(name = "tipoProduto")
+    @Column(name = "tipoProduto", nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoProduto tipoProduto;
 
-    @Column(name = "situacaoProduto")
+    @Column(name = "situacaoProduto", nullable = false)
     @Enumerated(EnumType.STRING)
     private SituacaoProduto situacaoProduto;
 }

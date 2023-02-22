@@ -1,6 +1,5 @@
-package br.com.senior.erp.controller.dto.response;
+package br.com.senior.erp.controller.dto.request;
 
-import br.com.senior.erp.enums.SituacaoProduto;
 import br.com.senior.erp.enums.TipoProduto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,12 +15,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class ProdutoResponse {
+public class ProdutoRequest {
 
     private UUID id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
     private TipoProduto tipoProduto;
-    private SituacaoProduto situacaoProduto;
 }
