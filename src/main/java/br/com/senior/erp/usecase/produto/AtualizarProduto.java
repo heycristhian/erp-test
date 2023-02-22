@@ -1,15 +1,17 @@
-package br.com.senior.erp.usecase;
+package br.com.senior.erp.usecase.produto;
 
 import br.com.senior.erp.controller.dto.request.ProdutoRequest;
 import br.com.senior.erp.domain.Produto;
 import br.com.senior.erp.exception.EntidadeNotFoundException;
 import br.com.senior.erp.mapper.ProdutoMapper;
 import br.com.senior.erp.repository.ProdutoRepository;
-import br.com.senior.erp.util.LogMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+
+import static br.com.senior.erp.util.LogMessage.ATUALIZANDO_OBJETO_BD;
+import static br.com.senior.erp.util.LogMessage.MAP_PROD_REQ_TO_PROD;
 
 @Slf4j
 @Component
@@ -26,10 +28,10 @@ public class AtualizarProduto {
             throw new EntidadeNotFoundException("Produto nao encontrado para atualizar com o ID: " + id);
         }
 
-        log.info(LogMessage.MAPEAMENTO, "ProdutoRequest", "Produto");
+        log.info(MAP_PROD_REQ_TO_PROD);
         Produto produto = ProdutoMapper.INSTANCE.toProduto(produtoRequest, id);
 
-        log.info("Atualizando produto no banco de dados");
+        log.info(ATUALIZANDO_OBJETO_BD, "produto");
         return produtoRepository.save(produto);
     }
 

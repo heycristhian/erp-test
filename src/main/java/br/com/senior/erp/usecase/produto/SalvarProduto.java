@@ -1,13 +1,16 @@
-package br.com.senior.erp.usecase;
+package br.com.senior.erp.usecase.produto;
 
 import br.com.senior.erp.controller.dto.request.ProdutoRequest;
 import br.com.senior.erp.domain.Produto;
 import br.com.senior.erp.enums.SituacaoProduto;
 import br.com.senior.erp.mapper.ProdutoMapper;
 import br.com.senior.erp.repository.ProdutoRepository;
-import br.com.senior.erp.util.LogMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import static br.com.senior.erp.util.LogMessage.INSERINDO_OBJETO_BD;
+import static br.com.senior.erp.util.LogMessage.MAP_PROD_REQ_TO_PROD;
+import static br.com.senior.erp.util.LogMessage.PRODUTO_ENTIDADE_NOME;
 
 @Slf4j
 @Component
@@ -20,10 +23,10 @@ public class SalvarProduto {
     }
 
     public Produto execute(ProdutoRequest produtoRequest) {
-        log.info(LogMessage.MAPEAMENTO, "ProdutoRequest", "Produto");
+        log.info(MAP_PROD_REQ_TO_PROD);
         var produto = ProdutoMapper.INSTANCE.toProduto(produtoRequest, SituacaoProduto.ATIVO);
 
-        log.info("Inserindo no banco de dados");
+        log.info(INSERINDO_OBJETO_BD, PRODUTO_ENTIDADE_NOME);
         return produtoRepository.save(produto);
     }
 }

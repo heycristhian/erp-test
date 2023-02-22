@@ -1,15 +1,19 @@
-package br.com.senior.erp.usecase;
+package br.com.senior.erp.usecase.produto;
 
 import br.com.senior.erp.controller.dto.filter.ProdutoFilter;
 import br.com.senior.erp.domain.Produto;
 import br.com.senior.erp.exception.EntidadeNotFoundException;
 import br.com.senior.erp.repository.ProdutoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+import static br.com.senior.erp.util.LogMessage.BUSCANDO_OBJETO_BD;
+
+@Slf4j
 @Component
 public class BuscarProduto {
 
@@ -20,10 +24,12 @@ public class BuscarProduto {
     }
 
     public Page<Produto> todos(ProdutoFilter produtoFilter, Pageable pageable) {
+        log.info(BUSCANDO_OBJETO_BD, "produtos");
         return produtoRepository.findAll(pageable);
     }
 
     public Produto porId(UUID id) {
+        log.info(BUSCANDO_OBJETO_BD, "produto");
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNotFoundException("Produto nao encontrado para o id: " + id));
     }
