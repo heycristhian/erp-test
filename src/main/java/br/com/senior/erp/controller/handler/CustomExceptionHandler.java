@@ -4,6 +4,7 @@ import br.com.senior.erp.controller.dto.response.ExceptionResponse;
 import br.com.senior.erp.controller.dto.response.FieldExceptionResponse;
 import br.com.senior.erp.exception.EntidadeNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                 .code(status.value())
                 .status(status.getReasonPhrase())
                 .message("Existe(m) campo(s) com erro")
+                .correlationId(getCorrelationId())
                 .fields(getFieldsExceptionResponse(ex))
                 .build();
         return ResponseEntity.status(status).body(response);
@@ -63,6 +65,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                 .code(httpStatus.value())
                 .status(httpStatus.getReasonPhrase())
                 .message(message)
+                .correlationId(getCorrelationId())
                 .build();
+    }
+
+    private String getCorrelationId() {
+        return MDC.get("correlationId");
     }
 }

@@ -12,6 +12,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -48,11 +50,14 @@ public class Pedido {
     private BigDecimal valorTotal;
 
     @Column(name = "situacao_pedido", nullable = false)
+    @Enumerated(EnumType.STRING)
     private SituacaoPedido situacaoPedido;
 
+    @Column(name = "create_date_time", nullable = false)
     @CreationTimestamp
     private LocalDateTime createDateTime;
 
+    @Column(name = "update_date_time", nullable = false)
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 

@@ -17,9 +17,10 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class ProdutoPedidoRequest {
 
-    @NotNull(message = "Id do produto {nao pode ser nulo}")
+    @NotNull(message = "ID do produto {objeto.not.null}")
     private UUID id;
 
+    @NotNull(message = "Quantidade do produto {objeto.not.null}")
     @Positive(message = "Quantidade {numero.positive}")
     private Integer quantidade;
 }

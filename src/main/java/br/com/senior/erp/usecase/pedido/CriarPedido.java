@@ -13,32 +13,24 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.senior.erp.util.LogMessage.INSERINDO_OBJETO_BD;
 import static br.com.senior.erp.util.LogMessage.MAP_PED_REQ_TO_PED;
-import static br.com.senior.erp.util.LogMessage.PEDIDO_ENTIDADE_NOME;
 import static java.util.Objects.isNull;
 
 @Slf4j
 @Component
 public class CriarPedido {
 
-    private final PedidoRepository pedidoRepository;
     private final BuscarProduto buscarProduto;
+    private final PedidoRepository pedidoRepository;
 
-    public CriarPedido(PedidoRepository pedidoRepository, BuscarProduto buscarProduto) {
-        this.pedidoRepository = pedidoRepository;
+    public CriarPedido(BuscarProduto buscarProduto, PedidoRepository pedidoRepository) {
         this.buscarProduto = buscarProduto;
+        this.pedidoRepository = pedidoRepository;
     }
 
-    public Pedido execute(PedidoRequest pedidoRequest) {
-        Pedido pedido = criaPedidoHandler(pedidoRequest);
-
-        log.info(INSERINDO_OBJETO_BD, PEDIDO_ENTIDADE_NOME);
-        return pedidoRepository.save(pedido);
-    }
-
-    private Pedido criaPedidoHandler(PedidoRequest pedidoRequest) {
+    public Pedido execute(PedidoRequest pedidoRequest, boolean geraNumeroPedido) {
         log.info(MAP_PED_REQ_TO_PED);
+
         List<ItemPedido> itens = new ArrayList<>();
 
         pedidoRequest.getProdutos()
@@ -48,7 +40,7 @@ public class CriarPedido {
                             ItemPedidoMapper.INSTANCE.toItemPedido(produto, p.getQuantidade())
                     );
                 });
-        var numeroPedido = criaNumeroPedido();
+        var numeroPedido = geraNumeroPedido ? criaNumeroPedido() : null;
         return PedidoMapper.INSTANCE.toPedido(pedidoRequest, itens, numeroPedido);
     }
 

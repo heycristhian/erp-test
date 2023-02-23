@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.UUID;
 
 @Builder
 @Data
@@ -17,8 +17,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class PedidoRequest {
 
-    private UUID id;
-
+    @Valid
     @NotNull(message = "Produtos {nao pode ser nulo")
     private List<ProdutoPedidoRequest> produtos;
 }

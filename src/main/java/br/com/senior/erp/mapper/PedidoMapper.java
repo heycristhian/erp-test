@@ -18,7 +18,6 @@ public interface PedidoMapper {
 
     PedidoResponse toPedidoResponse(Pedido pedido);
 
-    @Mapping(target = "id", source = "pedidoRequest.id")
     @Mapping(target = "itens", source = "itens")
     @Mapping(target = "numeroPedido", source = "numeroPedido")
     @Mapping(target = "situacaoPedido", expression = "java(br.com.senior.erp.enums.SituacaoPedido.ABERTO)")

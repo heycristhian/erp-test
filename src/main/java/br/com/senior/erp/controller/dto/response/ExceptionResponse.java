@@ -21,5 +21,8 @@ public class ExceptionResponse {
     private String message;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String correlationId;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<FieldExceptionResponse> fields;
 }
