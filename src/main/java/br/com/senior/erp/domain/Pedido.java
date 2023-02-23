@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,7 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -35,7 +37,7 @@ public class Pedido {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "numero_pedido", nullable = false)
+    @Column(name = "numero_pedido", unique = true, nullable = false)
     private Integer numeroPedido;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -48,7 +50,10 @@ public class Pedido {
     @Column(name = "situacao_pedido", nullable = false)
     private SituacaoPedido situacaoPedido;
 
-    @Column(name = "timestamp", nullable = false)
-    private Instant timestamp = Instant.now();
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
 
 }

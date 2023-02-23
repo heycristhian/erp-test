@@ -1,23 +1,30 @@
 package br.com.senior.erp.controller;
 
 import br.com.senior.erp.controller.dto.filter.PedidoFilter;
+import br.com.senior.erp.controller.dto.request.PedidoRequest;
 import br.com.senior.erp.controller.dto.response.PedidoResponse;
 import br.com.senior.erp.domain.Pedido;
 import br.com.senior.erp.mapper.PedidoMapper;
 import br.com.senior.erp.usecase.pedido.BuscarPedido;
+import br.com.senior.erp.usecase.pedido.CriarPedido;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.UUID;
 
 import static br.com.senior.erp.util.LogMessage.INICIANDO_BUSCA;
 import static br.com.senior.erp.util.LogMessage.INICIANDO_BUSCA_POR_ID;
+import static br.com.senior.erp.util.LogMessage.INICIANDO_INSERCAO;
 import static br.com.senior.erp.util.LogMessage.MAP_PED_TO_PED_RESP;
 import static br.com.senior.erp.util.LogMessage.PEDIDO_ENTIDADE_NOME;
 import static br.com.senior.erp.util.LogMessage.RETORNO_HTTP;
@@ -28,9 +35,11 @@ import static br.com.senior.erp.util.LogMessage.RETORNO_HTTP;
 public class PedidoController {
 
     private final BuscarPedido buscarPedido;
+    private final CriarPedido criarPedido;
 
-    public PedidoController(BuscarPedido buscarPedido) {
+    public PedidoController(BuscarPedido buscarPedido, CriarPedido criarPedido) {
         this.buscarPedido = buscarPedido;
+        this.criarPedido = criarPedido;
     }
 
     @GetMapping("/{id}")
@@ -54,4 +63,19 @@ public class PedidoController {
         log.info(RETORNO_HTTP);
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping
+    public ResponseEntity<PedidoResponse> criaPedido(@RequestBody PedidoRequest pedidoRequest, UriComponentsBuilder uriBuilder) {
+        log.info(INICIANDO_INSERCAO, PEDIDO_ENTIDADE_NOME);
+        Pedido pedido = criarPedido.execute(pedidoRequest);
+
+        log.info(MAP_PED_TO_PED_RESP);
+        PedidoResponse pedidoResponse = PedidoMapper.INSTANCE.toPedidoResponse(pedido);
+
+        URI uri = uriBuilder.path("/api/pedidos/{id}").buildAndExpand(pedidoResponse.getId()).toUri();
+
+        log.info(RETORNO_HTTP);
+        return ResponseEntity.created(uri).body(pedidoResponse);
+    }
+
 }

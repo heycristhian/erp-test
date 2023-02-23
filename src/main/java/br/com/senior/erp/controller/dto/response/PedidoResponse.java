@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,5 +24,6 @@ public class PedidoResponse {
     private List<ItemPedidoResponse> itens;
     private BigDecimal valorTotal;
     private SituacaoPedido situacaoPedido;
-    private Instant timestamp;
+    private LocalDateTime createDateTime;
+    private LocalDateTime updateDateTime;
 }

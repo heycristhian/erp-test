@@ -1,0 +1,3 @@
+INSERT INTO PRODUTO (id, nome, descricao, preco, tipo_produto, situacao_produto) VALUES ('0c7afcdf-e802-48fa-a299-4d58bd9c0cbc', 'Teclado RedDragon', 'Teclado USB RedDragon', 758.90, 'FISICO', 'ATIVO');
+INSERT INTO PRODUTO (id, nome, descricao, preco, tipo_produto, situacao_produto) VALUES ('085d98df-9cb0-471b-8ec2-6890879e2c44', 'Mouse RedDragon', 'Mouse USB RedDragon', 155.90, 'FISICO', 'ATIVO');
+INSERT INTO PRODUTO (id, nome, descricao, preco, tipo_produto, situacao_produto) VALUES ('c7c7ed87-206c-4330-b719-60d3c7231996', 'Teclado RedDragon', 'Teclado USB RedDragon', 110.00, 'INTANGIVEL', 'ATIVO');

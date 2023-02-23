@@ -26,7 +26,7 @@ public class ProdutoRequest {
     @NotBlank(message = "Descricao {string.not.blank}")
     private String descricao;
 
-    @Positive(message = "Preco {big.decimal.positive}")
+    @Positive(message = "Preco {numero.positive}")
     private BigDecimal preco;
 
     @NotNull(message = "TipoProduto {objeto.not.null}")

@@ -2,6 +2,7 @@ package br.com.senior.erp.controller.handler;
 
 import br.com.senior.erp.controller.dto.response.ExceptionResponse;
 import br.com.senior.erp.controller.dto.response.FieldExceptionResponse;
+import br.com.senior.erp.exception.EntidadeNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         var response = handleExceptionResponse(httpStatus, "Erro inesperado do sistema");
 
         log.error("Internal Server Error: {}", e.getLocalizedMessage());
+        return ResponseEntity.status(httpStatus).body(response);
+    }
+
+    @ExceptionHandler(EntidadeNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleEntidadeNotFoundException(EntidadeNotFoundException e) {
+        var httpStatus = HttpStatus.BAD_REQUEST;
+        var response = handleExceptionResponse(httpStatus, e.getLocalizedMessage());
+
+        log.error("Entidade nao encontrada: {}", e.getLocalizedMessage());
         return ResponseEntity.status(httpStatus).body(response);
     }
 
