@@ -2,6 +2,7 @@ package br.com.senior.erp.usecase.pedido;
 
 import br.com.senior.erp.controller.dto.request.PedidoRequest;
 import br.com.senior.erp.domain.Pedido;
+import br.com.senior.erp.enums.SituacaoPedido;
 import br.com.senior.erp.exception.EntidadeNotFoundException;
 import br.com.senior.erp.repository.PedidoRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +28,9 @@ public class AtualizarPedido {
 
     public Pedido execute(UUID id, PedidoRequest pedidoRequest) {
         log.info("Verificando se o pedido existe na base de dados");
-        Pedido pedido = pedidoRepository.findById(id)
+        Pedido pedido = pedidoRepository.findByIdAndSituacaoPedido(id, SituacaoPedido.ABERTO)
                 .map(p -> handlePedido(id, pedidoRequest, p.getNumeroPedido(), p.getCreateDateTime()))
-                .orElseThrow(() -> new EntidadeNotFoundException("Nao é possível atualizar pedido que nao consta no sistema (ID: " + id + ")"));
+                .orElseThrow(() -> new EntidadeNotFoundException("Nao é possível atualizar pedido que nao consta no sistema ou nao esta em situacao aberta (ID: " + id + ")"));
 
         log.info(INSERINDO_OBJETO_BD, PEDIDO_ENTIDADE_NOME);
         return pedidoRepository.save(pedido);
