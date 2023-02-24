@@ -3,9 +3,9 @@ package br.com.senior.erp.util;
 import br.com.senior.erp.domain.Pedido;
 import br.com.senior.erp.domain.Produto;
 
-public abstract class LogMessage {
+public abstract class MessageUtil {
 
-    private LogMessage() {
+    private MessageUtil() {
     }
 
     public static final String MAP_PROD_TO_PROD_RESP = "Mapeando Produto para ProdutoResponse";
@@ -26,6 +26,8 @@ public abstract class LogMessage {
     public static final String INICIANDO_ATUALIZACAO = "Iniciando atualizacao de um {} na base de dados";
     public static final String INICIANDO_DELECAO = "Iniciando delecao de um {} na base de dados";
     public static final String INICIANDO_APLICACAO_DESCONTO = "Iniciando desconto de um {}";
+    public static final String INICIANDO_CANCELAMENTO_PEDIDO = "Iniciando cancelamento de um {}";
+    public static final String INICIANDO_FINALIZACAO_PEDIDO = "Iniciando finalizacao de um {}";
 
     public static final String PRODUTO_ENTIDADE_NOME = Produto.class.getSimpleName();
     public static final String PEDIDO_ENTIDADE_NOME = Pedido.class.getSimpleName();

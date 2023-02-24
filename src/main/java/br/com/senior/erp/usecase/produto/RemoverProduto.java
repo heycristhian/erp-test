@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-import static br.com.senior.erp.util.LogMessage.REMOVENDO_OBJETO_BD;
+import static br.com.senior.erp.util.MessageUtil.REMOVENDO_OBJETO_BD;
 
 @Slf4j
 @Component

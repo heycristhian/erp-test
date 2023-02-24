@@ -27,14 +27,14 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
 
-import static br.com.senior.erp.util.LogMessage.INICIANDO_ATUALIZACAO;
-import static br.com.senior.erp.util.LogMessage.INICIANDO_BUSCA;
-import static br.com.senior.erp.util.LogMessage.INICIANDO_BUSCA_POR_ID;
-import static br.com.senior.erp.util.LogMessage.INICIANDO_DELECAO;
-import static br.com.senior.erp.util.LogMessage.INICIANDO_INSERCAO;
-import static br.com.senior.erp.util.LogMessage.MAP_PROD_TO_PROD_RESP;
-import static br.com.senior.erp.util.LogMessage.PRODUTO_ENTIDADE_NOME;
-import static br.com.senior.erp.util.LogMessage.RETORNO_HTTP;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_ATUALIZACAO;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_BUSCA;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_BUSCA_POR_ID;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_DELECAO;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_INSERCAO;
+import static br.com.senior.erp.util.MessageUtil.MAP_PROD_TO_PROD_RESP;
+import static br.com.senior.erp.util.MessageUtil.PRODUTO_ENTIDADE_NOME;
+import static br.com.senior.erp.util.MessageUtil.RETORNO_HTTP;
 
 @Slf4j
 @RestController

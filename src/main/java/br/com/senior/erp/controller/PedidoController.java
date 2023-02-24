@@ -9,6 +9,8 @@ import br.com.senior.erp.mapper.PedidoMapper;
 import br.com.senior.erp.usecase.pedido.AplicarDesconto;
 import br.com.senior.erp.usecase.pedido.AtualizarPedido;
 import br.com.senior.erp.usecase.pedido.BuscarPedido;
+import br.com.senior.erp.usecase.pedido.CancelarPedido;
+import br.com.senior.erp.usecase.pedido.FinalizarPedido;
 import br.com.senior.erp.usecase.pedido.SalvarPedido;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,14 +29,16 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
 
-import static br.com.senior.erp.util.LogMessage.INICIANDO_APLICACAO_DESCONTO;
-import static br.com.senior.erp.util.LogMessage.INICIANDO_ATUALIZACAO;
-import static br.com.senior.erp.util.LogMessage.INICIANDO_BUSCA;
-import static br.com.senior.erp.util.LogMessage.INICIANDO_BUSCA_POR_ID;
-import static br.com.senior.erp.util.LogMessage.INICIANDO_INSERCAO;
-import static br.com.senior.erp.util.LogMessage.MAP_PED_TO_PED_RESP;
-import static br.com.senior.erp.util.LogMessage.PEDIDO_ENTIDADE_NOME;
-import static br.com.senior.erp.util.LogMessage.RETORNO_HTTP;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_APLICACAO_DESCONTO;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_ATUALIZACAO;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_BUSCA;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_BUSCA_POR_ID;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_CANCELAMENTO_PEDIDO;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_FINALIZACAO_PEDIDO;
+import static br.com.senior.erp.util.MessageUtil.INICIANDO_INSERCAO;
+import static br.com.senior.erp.util.MessageUtil.MAP_PED_TO_PED_RESP;
+import static br.com.senior.erp.util.MessageUtil.PEDIDO_ENTIDADE_NOME;
+import static br.com.senior.erp.util.MessageUtil.RETORNO_HTTP;
 
 @Slf4j
 @RestController
@@ -45,12 +49,16 @@ public class PedidoController {
     private final SalvarPedido salvarPedido;
     private final AtualizarPedido atualizarPedido;
     private final AplicarDesconto aplicarDesconto;
+    private final CancelarPedido cancelarPedido;
+    private final FinalizarPedido finalizarPedido;
 
-    public PedidoController(BuscarPedido buscarPedido, SalvarPedido salvarPedido, AtualizarPedido atualizarPedido, AplicarDesconto aplicarDesconto) {
+    public PedidoController(BuscarPedido buscarPedido, SalvarPedido salvarPedido, AtualizarPedido atualizarPedido, AplicarDesconto aplicarDesconto, CancelarPedido cancelarPedido, FinalizarPedido finalizarPedido) {
         this.buscarPedido = buscarPedido;
         this.salvarPedido = salvarPedido;
         this.atualizarPedido = atualizarPedido;
         this.aplicarDesconto = aplicarDesconto;
+        this.cancelarPedido = cancelarPedido;
+        this.finalizarPedido = finalizarPedido;
     }
 
     @GetMapping("/{id}")
@@ -105,6 +113,24 @@ public class PedidoController {
     public ResponseEntity<Void> aplicaDesconto(@RequestBody @Valid AplicaDescontoRequest aplicaDescontoRequest) {
         log.info(INICIANDO_APLICACAO_DESCONTO, PEDIDO_ENTIDADE_NOME);
         aplicarDesconto.execute(aplicaDescontoRequest);
+
+        log.info(RETORNO_HTTP);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/finalizaPedido/{id}")
+    public ResponseEntity<Void> finalizaPedido(@PathVariable UUID id) {
+        log.info(INICIANDO_FINALIZACAO_PEDIDO, PEDIDO_ENTIDADE_NOME);
+        finalizarPedido.execute(id);
+
+        log.info(RETORNO_HTTP);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/cancelaPedido/{id}")
+    public ResponseEntity<Void> cancelaPedido(@PathVariable UUID id) {
+        log.info(INICIANDO_CANCELAMENTO_PEDIDO, PEDIDO_ENTIDADE_NOME);
+        cancelarPedido.execute(id);
 
         log.info(RETORNO_HTTP);
         return ResponseEntity.ok().build();

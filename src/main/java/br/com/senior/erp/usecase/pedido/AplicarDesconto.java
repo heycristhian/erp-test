@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static br.com.senior.erp.util.LogMessage.BUSCANDO_OBJETO_BD;
-import static br.com.senior.erp.util.LogMessage.INSERINDO_OBJETO_BD;
-import static br.com.senior.erp.util.LogMessage.PEDIDO_ENTIDADE_NOME;
+import static br.com.senior.erp.util.MessageUtil.BUSCANDO_OBJETO_BD;
+import static br.com.senior.erp.util.MessageUtil.INSERINDO_OBJETO_BD;
+import static br.com.senior.erp.util.MessageUtil.PEDIDO_ENTIDADE_NOME;
 
 @Slf4j
 @Component
@@ -32,9 +32,9 @@ public class AplicarDesconto {
         Pedido pedido = pedidoRepository.findById(aplicaDescontoRequest.getIdPedido())
                 .orElseThrow(() -> new EntidadeNotFoundException(PEDIDO_ENTIDADE_NOME, aplicaDescontoRequest.getIdPedido()));
 
-        log.info("Verificando se o pedido esta em situacao aberta");
+        log.info("Verificando se o pedido está em situacao aberta");
         if (!SituacaoPedido.ABERTO.equals(pedido.getSituacaoPedido())) {
-            throw new NegocioException("Nao é possível aplicar desconto para pedido diferente de 'ABERTO'");
+            throw new NegocioException("Nao é possível aplicar desconto para pedido diferente de 'ABERTO' - Situacao atual: " + pedido.getSituacaoPedido());
         }
 
         handlePedido(pedido, aplicaDescontoRequest);

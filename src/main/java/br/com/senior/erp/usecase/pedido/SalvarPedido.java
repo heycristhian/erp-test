@@ -6,8 +6,8 @@ import br.com.senior.erp.repository.PedidoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static br.com.senior.erp.util.LogMessage.INSERINDO_OBJETO_BD;
-import static br.com.senior.erp.util.LogMessage.PEDIDO_ENTIDADE_NOME;
+import static br.com.senior.erp.util.MessageUtil.INSERINDO_OBJETO_BD;
+import static br.com.senior.erp.util.MessageUtil.PEDIDO_ENTIDADE_NOME;
 
 @Slf4j
 @Component

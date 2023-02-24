@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-import static br.com.senior.erp.util.LogMessage.ATUALIZANDO_OBJETO_BD;
-import static br.com.senior.erp.util.LogMessage.MAP_PROD_REQ_TO_PROD;
-import static br.com.senior.erp.util.LogMessage.PRODUTO_ENTIDADE_NOME;
+import static br.com.senior.erp.util.MessageUtil.ATUALIZANDO_OBJETO_BD;
+import static br.com.senior.erp.util.MessageUtil.MAP_PROD_REQ_TO_PROD;
+import static br.com.senior.erp.util.MessageUtil.PRODUTO_ENTIDADE_NOME;
 
 @Slf4j
 @Component

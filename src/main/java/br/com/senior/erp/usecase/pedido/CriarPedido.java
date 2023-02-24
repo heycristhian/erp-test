@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.senior.erp.util.LogMessage.MAP_PED_REQ_TO_PED;
+import static br.com.senior.erp.util.MessageUtil.MAP_PED_REQ_TO_PED;
 import static java.util.Objects.isNull;
 
 @Slf4j
