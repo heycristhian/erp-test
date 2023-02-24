@@ -1,6 +1,7 @@
 package br.com.senior.erp.controller.dto.response;
 
 import br.com.senior.erp.enums.SituacaoPedido;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,4 +27,10 @@ public class PedidoResponse {
     private SituacaoPedido situacaoPedido;
     private LocalDateTime createDateTime;
     private LocalDateTime updateDateTime;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private BigDecimal percentualDesconto;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private BigDecimal valorDesconto;
 }

@@ -44,6 +44,7 @@ public class Pedido {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pedido_id")
+    @Builder.Default
     private List<ItemPedido> itens = new ArrayList<>();
 
     @Column(name = "valor_total", nullable = false)
@@ -52,6 +53,12 @@ public class Pedido {
     @Column(name = "situacao_pedido", nullable = false)
     @Enumerated(EnumType.STRING)
     private SituacaoPedido situacaoPedido;
+
+    @Column(name = "percentual_desconto")
+    private BigDecimal percentualDesconto;
+
+    @Column(name = "valor_desconto")
+    private BigDecimal valorDesconto;
 
     @Column(name = "create_date_time", nullable = false)
     @CreationTimestamp

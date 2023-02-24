@@ -1,10 +1,12 @@
 package br.com.senior.erp.controller;
 
 import br.com.senior.erp.controller.dto.filter.PedidoFilter;
+import br.com.senior.erp.controller.dto.request.AplicaDescontoRequest;
 import br.com.senior.erp.controller.dto.request.PedidoRequest;
 import br.com.senior.erp.controller.dto.response.PedidoResponse;
 import br.com.senior.erp.domain.Pedido;
 import br.com.senior.erp.mapper.PedidoMapper;
+import br.com.senior.erp.usecase.pedido.AplicarDesconto;
 import br.com.senior.erp.usecase.pedido.AtualizarPedido;
 import br.com.senior.erp.usecase.pedido.BuscarPedido;
 import br.com.senior.erp.usecase.pedido.SalvarPedido;
@@ -25,6 +27,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
 
+import static br.com.senior.erp.util.LogMessage.INICIANDO_APLICACAO_DESCONTO;
 import static br.com.senior.erp.util.LogMessage.INICIANDO_ATUALIZACAO;
 import static br.com.senior.erp.util.LogMessage.INICIANDO_BUSCA;
 import static br.com.senior.erp.util.LogMessage.INICIANDO_BUSCA_POR_ID;
@@ -41,11 +44,13 @@ public class PedidoController {
     private final BuscarPedido buscarPedido;
     private final SalvarPedido salvarPedido;
     private final AtualizarPedido atualizarPedido;
+    private final AplicarDesconto aplicarDesconto;
 
-    public PedidoController(BuscarPedido buscarPedido, SalvarPedido salvarPedido, AtualizarPedido atualizarPedido) {
+    public PedidoController(BuscarPedido buscarPedido, SalvarPedido salvarPedido, AtualizarPedido atualizarPedido, AplicarDesconto aplicarDesconto) {
         this.buscarPedido = buscarPedido;
         this.salvarPedido = salvarPedido;
         this.atualizarPedido = atualizarPedido;
+        this.aplicarDesconto = aplicarDesconto;
     }
 
     @GetMapping("/{id}")
@@ -94,5 +99,14 @@ public class PedidoController {
 
         log.info(RETORNO_HTTP);
         return ResponseEntity.ok(pedidoResponse);
+    }
+
+    @PostMapping("/aplicaDesconto")
+    public ResponseEntity<Void> aplicaDesconto(@RequestBody @Valid AplicaDescontoRequest aplicaDescontoRequest) {
+        log.info(INICIANDO_APLICACAO_DESCONTO, PEDIDO_ENTIDADE_NOME);
+        aplicarDesconto.execute(aplicaDescontoRequest);
+
+        log.info(RETORNO_HTTP);
+        return ResponseEntity.ok().build();
     }
 }

@@ -33,12 +33,12 @@ public class BuscarProduto {
     public Produto porId(UUID id) {
         log.info(BUSCANDO_OBJETO_BD, PRODUTO_ENTIDADE_NOME);
         return produtoRepository.findById(id)
-                .orElseThrow(() -> new EntidadeNotFoundException("Produto nao encontrado para o id: " + id));
+                .orElseThrow(() -> new EntidadeNotFoundException(PRODUTO_ENTIDADE_NOME, id));
     }
 
     public Produto porIdAndSituacaoInativaNot(UUID id) {
         log.info(BUSCANDO_OBJETO_BD, PRODUTO_ENTIDADE_NOME);
         return produtoRepository.findByIdAndSituacaoProdutoNot(id, SituacaoProduto.INATIVO)
-                .orElseThrow(() -> new EntidadeNotFoundException("Produto nao encontrado para o ID: " + id));
+                .orElseThrow(() -> new EntidadeNotFoundException(PRODUTO_ENTIDADE_NOME, id));
     }
 }

@@ -26,7 +26,7 @@ public class BuscarPedido {
     public Pedido porId(UUID id) {
         log.info(BUSCANDO_OBJETO_BD, PEDIDO_ENTIDADE_NOME);
         return pedidoRepository.findById(id)
-                .orElseThrow(() -> new EntidadeNotFoundException("Pedido nao encontrado para o ID: " + id));
+                .orElseThrow(() -> new EntidadeNotFoundException(PEDIDO_ENTIDADE_NOME, id));
     }
 
     public Page<Pedido> todos(Pageable pageable) {

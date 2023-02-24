@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import static br.com.senior.erp.util.LogMessage.ATUALIZANDO_OBJETO_BD;
 import static br.com.senior.erp.util.LogMessage.MAP_PROD_REQ_TO_PROD;
+import static br.com.senior.erp.util.LogMessage.PRODUTO_ENTIDADE_NOME;
 
 @Slf4j
 @Component
@@ -25,7 +26,7 @@ public class AtualizarProduto {
 
     public Produto execute(UUID id, ProdutoRequest produtoRequest) {
         if (!existeProdutoPorId(id)) {
-            throw new EntidadeNotFoundException("Produto nao encontrado para atualizar com o ID: " + id);
+            throw new EntidadeNotFoundException(PRODUTO_ENTIDADE_NOME, id);
         }
 
         log.info(MAP_PROD_REQ_TO_PROD);

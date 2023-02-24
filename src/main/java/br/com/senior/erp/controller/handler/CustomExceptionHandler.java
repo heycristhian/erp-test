@@ -3,6 +3,7 @@ package br.com.senior.erp.controller.handler;
 import br.com.senior.erp.controller.dto.response.ExceptionResponse;
 import br.com.senior.erp.controller.dto.response.FieldExceptionResponse;
 import br.com.senior.erp.exception.EntidadeNotFoundException;
+import br.com.senior.erp.exception.NegocioException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
@@ -41,12 +42,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(httpStatus).body(response);
     }
 
-    @ExceptionHandler(EntidadeNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleEntidadeNotFoundException(EntidadeNotFoundException e) {
+    @ExceptionHandler({EntidadeNotFoundException.class, NegocioException.class})
+    public ResponseEntity<ExceptionResponse> handleEntidadeNotFoundException(RuntimeException e) {
         var httpStatus = HttpStatus.BAD_REQUEST;
         var response = handleExceptionResponse(httpStatus, e.getLocalizedMessage());
 
-        log.error("Entidade nao encontrada: {}", e.getLocalizedMessage());
+        log.error("Bad Request: {}", e.getLocalizedMessage());
         return ResponseEntity.status(httpStatus).body(response);
     }
 

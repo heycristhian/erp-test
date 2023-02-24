@@ -25,6 +25,7 @@ public abstract class LogMessage {
     public static final String INICIANDO_INSERCAO = "Iniciando insercao de um {} na base de dados";
     public static final String INICIANDO_ATUALIZACAO = "Iniciando atualizacao de um {} na base de dados";
     public static final String INICIANDO_DELECAO = "Iniciando delecao de um {} na base de dados";
+    public static final String INICIANDO_APLICACAO_DESCONTO = "Iniciando desconto de um {}";
 
     public static final String PRODUTO_ENTIDADE_NOME = Produto.class.getSimpleName();
     public static final String PEDIDO_ENTIDADE_NOME = Pedido.class.getSimpleName();
