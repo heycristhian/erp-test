@@ -17,8 +17,8 @@ public class SwaggerConfiguration {
     private final String version;
 
     public SwaggerConfiguration(@Value("${spring.application.swagger.title}") final String title,
-                   @Value("${spring.application.swagger.description}") final String description,
-                   @Value("${spring.application.swagger.version}") final String version) {
+                                @Value("${spring.application.swagger.description}") final String description,
+                                @Value("${spring.application.swagger.version}") final String version) {
         this.title = title;
         this.description = description;
         this.version = version;
