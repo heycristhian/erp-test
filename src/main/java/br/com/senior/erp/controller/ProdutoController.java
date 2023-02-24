@@ -9,6 +9,7 @@ import br.com.senior.erp.usecase.produto.AtualizarProduto;
 import br.com.senior.erp.usecase.produto.BuscarProduto;
 import br.com.senior.erp.usecase.produto.RemoverProduto;
 import br.com.senior.erp.usecase.produto.SalvarProduto;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +37,7 @@ import static br.com.senior.erp.util.MessageUtil.MAP_PROD_TO_PROD_RESP;
 import static br.com.senior.erp.util.MessageUtil.PRODUTO_ENTIDADE_NOME;
 import static br.com.senior.erp.util.MessageUtil.RETORNO_HTTP;
 
+@Api(tags = "Produto")
 @Slf4j
 @RestController
 @RequestMapping("/api/produtos")

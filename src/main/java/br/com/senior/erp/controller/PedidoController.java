@@ -12,6 +12,7 @@ import br.com.senior.erp.usecase.pedido.BuscarPedido;
 import br.com.senior.erp.usecase.pedido.CancelarPedido;
 import br.com.senior.erp.usecase.pedido.FinalizarPedido;
 import br.com.senior.erp.usecase.pedido.SalvarPedido;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,7 @@ import static br.com.senior.erp.util.MessageUtil.MAP_PED_TO_PED_RESP;
 import static br.com.senior.erp.util.MessageUtil.PEDIDO_ENTIDADE_NOME;
 import static br.com.senior.erp.util.MessageUtil.RETORNO_HTTP;
 
+@Api(tags = "Pedido")
 @Slf4j
 @RestController
 @RequestMapping("/api/pedidos")
