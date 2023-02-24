@@ -1,6 +1,7 @@
 package br.com.senior.erp.usecase.pedido;
 
 import br.com.senior.erp.controller.dto.request.AplicaDescontoRequest;
+import br.com.senior.erp.domain.ItemPedido;
 import br.com.senior.erp.domain.Pedido;
 import br.com.senior.erp.enums.SituacaoPedido;
 import br.com.senior.erp.enums.TipoProduto;
@@ -37,19 +38,19 @@ public class AplicarDesconto {
             throw new NegocioException("Nao é possível aplicar desconto para pedido diferente de 'ABERTO' - Situacao atual: " + pedido.getSituacaoPedido());
         }
 
-        handlePedido(pedido, aplicaDescontoRequest);
+        handlePedido(pedido, aplicaDescontoRequest.getPercentualDesconto());
 
         log.info(INSERINDO_OBJETO_BD, PEDIDO_ENTIDADE_NOME);
         pedidoRepository.save(pedido);
     }
 
-    private void handlePedido(Pedido pedido, AplicaDescontoRequest aplicaDescontoRequest) {
-        BigDecimal novoValor = calculaNovoValor(pedido, aplicaDescontoRequest.getPercentualDesconto());
-        BigDecimal valorDesconto = pedido.getValorTotal().subtract(novoValor);
+    private void handlePedido(Pedido pedido, BigDecimal percentualDesconto) {
+        BigDecimal novoValor = calculaNovoValor(pedido, percentualDesconto);
+        BigDecimal valorDesconto = calculaValorDesconto(pedido, novoValor);
 
         log.info("Atualizando objeto para os novos valores calculados");
         pedido.setValorDesconto(valorDesconto);
-        pedido.setPercentualDesconto(aplicaDescontoRequest.getPercentualDesconto());
+        pedido.setPercentualDesconto(percentualDesconto);
         pedido.setValorTotal(novoValor);
     }
 
@@ -66,5 +67,13 @@ public class AplicarDesconto {
                     return i.getPrecoTotal();
                 })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private BigDecimal calculaValorDesconto(Pedido pedido, BigDecimal novoValor) {
+        return pedido.getItens()
+                .stream()
+                .map(ItemPedido::getPrecoTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .subtract(novoValor);
     }
 }

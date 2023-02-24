@@ -97,18 +97,6 @@ public class PedidoController {
         return ResponseEntity.created(uri).body(pedidoResponse);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PedidoResponse> atualizaPedido(@RequestBody @Valid PedidoRequest pedidoRequest, @PathVariable UUID id) {
-        log.info(INICIANDO_ATUALIZACAO, PEDIDO_ENTIDADE_NOME);
-        Pedido pedido = atualizarPedido.execute(id, pedidoRequest);
-
-        log.info(MAP_PED_TO_PED_RESP);
-        PedidoResponse pedidoResponse = PedidoMapper.INSTANCE.toPedidoResponse(pedido);
-
-        log.info(RETORNO_HTTP);
-        return ResponseEntity.ok(pedidoResponse);
-    }
-
     @PostMapping("/aplicaDesconto")
     public ResponseEntity<Void> aplicaDesconto(@RequestBody @Valid AplicaDescontoRequest aplicaDescontoRequest) {
         log.info(INICIANDO_APLICACAO_DESCONTO, PEDIDO_ENTIDADE_NOME);
@@ -134,5 +122,17 @@ public class PedidoController {
 
         log.info(RETORNO_HTTP);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PedidoResponse> atualizaPedido(@RequestBody @Valid PedidoRequest pedidoRequest, @PathVariable UUID id) {
+        log.info(INICIANDO_ATUALIZACAO, PEDIDO_ENTIDADE_NOME);
+        Pedido pedido = atualizarPedido.execute(id, pedidoRequest);
+
+        log.info(MAP_PED_TO_PED_RESP);
+        PedidoResponse pedidoResponse = PedidoMapper.INSTANCE.toPedidoResponse(pedido);
+
+        log.info(RETORNO_HTTP);
+        return ResponseEntity.ok(pedidoResponse);
     }
 }
